@@ -3,7 +3,6 @@
 #include <climits>
 #include <math.h>
 
-#define RUN_TIMES 1000000000
 #define FLOAT_MOD 100000.0
 
 void IntAdder(int *a,int *b)
@@ -18,6 +17,8 @@ void FloatAdder(float *a,float *b)
 
 int main()
 {
+    uint32_t RUN_TIMES;
+    std::cin>>RUN_TIMES;
     clock_t first_start = clock();
     for (int i = 0; i < RUN_TIMES; i++)
     {
