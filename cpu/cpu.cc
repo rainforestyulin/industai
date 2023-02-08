@@ -37,7 +37,7 @@ int main()
     }
     clock_t second_end = clock();
     std::cout<<"float run time is:"<<(second_end - first_start)/CLOCKS_PER_SEC<<" s"<<std::endl;
-
+    getchar();
     return 0;
         
 }
