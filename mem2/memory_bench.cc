@@ -38,7 +38,7 @@ int main()
 {
 
     clock_t begin = clock();
-    size_t number = 1024;
+    size_t number = 1024*16;
     std::cout<<number<<std::endl;
     mem_bench<Elem>(number);
     clock_t end = clock();
