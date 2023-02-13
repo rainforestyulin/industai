@@ -1,10 +1,14 @@
 #include "simple_vector.cc"
+
 #include <memory>
 #include <string>
 #include <time.h>
 #include <sys/time.h>
 #include <iostream>
+#include <unistd.h>
 
+#define DEFAULT_REPEAT_TIME 10
+/* default test memory size */
 #define DEFAULT_MEM_SIZE 1024*1024*1024    // 1GiB
 
 using namespace std;
@@ -59,12 +63,35 @@ void print_result(double time, double memory_size)
     printf("WR_speed: %.3f MiB/s\n" , memory_size/time);
     return;
 }
-int main()
+int main(int argc, char **argv)
 {
 
     SimpleVector<Elem> mvector;
     size_t number = 1024*1024*512;
+    /* starttime and endtime */
     struct timeval starttime , endtime;
+    /* option code */
+    int op_code;
+    /* show avg result per loop? */
+    int show_avg = 1;
+    int repeat_times = DEFAULT_REPEAT_TIME;
+    while ((op_code = getopt(argc, argv, "ha:b:")) != EOF )     
+    {
+        switch (op_code)
+        {
+        case 'h':
+            printf("Usage: memben [options]\n");
+            printf("Options: \n     -a :number of objects\n     -b :repeat_times\n");
+            exit(0);
+        case 'a':
+            number = strtoul(optarg, (char **)NULL, 10);
+            break;
+        case 'b':
+            repeat_times = strtoul(optarg,(char **)NULL, 10);
+             default:
+            break;
+        }
+    }
     gettimeofday(&starttime, NULL);
     // clock_t begin = clock();
     // Elem e("hello", 1234);
