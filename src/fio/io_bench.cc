@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string>
-#include <sys/time.h>
+#include "../platform.h"
 
 namespace io_bench
 {

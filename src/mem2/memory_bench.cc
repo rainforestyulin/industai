@@ -2,44 +2,9 @@
 
 #include <memory>
 #include <string>
-#include <time.h>
-#include <sys/time.h>
+#include "../platform.h"
 #include <unistd.h>
 
-// #define DEFAULT_REPEAT_TIME 10
-// /* default test memory size */
-// #define DEFAULT_MEM_SIZE 1024*1024*1024    // 1GiB
-//
-// using namespace std;
-// class Elem {
-// public:
-//     Elem () : Elem("this is a test object", 0){};
-//     Elem (const char *name,int id): name_(name), id_(id){};
-//     ~Elem () {};
-//     int get_id() { return id_; };
-// private:
-//     const char *name_;
-//     int id_;
-// };
-//
-
-// // allocator a memory pool of type T which number is  n
-// // construct T's object on the pool and destroy
-// template <typename T>
-// void mem_bench(size_t n)
-// {
-//     allocator<T> alloc;
-//     for (size_t j = 0; j < n; ++j)
-//     {
-//         auto p = alloc.allocate(n);
-//         for (size_t i = 0; i < n; ++i)
-//         {
-//             alloc.construct(p, " ");
-//             alloc.destroy(p);
-//             p++;
-//         }
-//     }
-// }
 namespace memory_bench{
 void print_result(double te, size_t mem_size)
 {

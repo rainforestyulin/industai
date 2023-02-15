@@ -1,7 +1,7 @@
 #include "cpu_bench.h"
+#include "../platform.h"
 
 #include <iostream>
-#include <sys/time.h>
 
 namespace cpu_bench{
 
