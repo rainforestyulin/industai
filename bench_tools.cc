@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 #ifdef WIN32
-const char *rm_file_cmd = "del test.bin1";
+const char *rm_file_cmd = "del -Force test.bin1";
 #else
-const char *rm_file_cmd = "rm test.bin1";
+const char *rm_file_cmd = "rm -f test.bin1";
 #endif
 
 int main(int argc, char **argv)
