@@ -1,5 +1,4 @@
-#include <stdio.h>
-
+namespace io_bench {
 /* 随机读取磁盘 */
 void read_randomly(char *address, long size/* length */, int fd);
 
@@ -18,3 +17,4 @@ int *prepare_data(long size);
 /* 打印结果 */
 void print_result(double te, size_t mem_size);
 
+} // namespace io_bench

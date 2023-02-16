@@ -1,3 +1,5 @@
+namespace cpu_bench {
+
 /* 素数运算，找到n个素数后退出 */
 void runner(long num);
 
@@ -6,3 +8,5 @@ double run_time(long num);
 
 /* 打印结果 */
 void print_result(double te, long numb);
+
+} // namespace cpu_bench

@@ -85,13 +85,4 @@ void print_result(double te, size_t mem_size)
 }
 
 } // namespace io_bench
-// int main(int argc, char** argv)
-// {
-//     int datasize = 128*2048*1024;
-//     char *data = prepare_data(datasize);
-//     int fd = open(*(argv+1), O_RDWR|O_CREAT);
-//     write_randomly(data, datasize, fd);
-//     write_sequentially(data, datasize, fd);
-//     free(data);
-//     return 0;
-// }
+
