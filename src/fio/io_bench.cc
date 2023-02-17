@@ -12,7 +12,8 @@ namespace io_bench
 inline double time_deal(struct timeval &s, struct timeval &e)
 {
     return
-     (static_cast<double>(e.tv_sec*1000000 - s.tv_sec*1000000 + e.tv_usec - s.tv_usec))/1000000;
+     (static_cast<double>(e.tv_sec*1000000 -
+                          s.tv_sec*1000000 + e.tv_usec - s.tv_usec))/1000000;
 }
 
 double read_randomly(char *address, long size, int fd)

@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 namespace io_bench {
 /* 随机读取磁盘 */
 void read_randomly(char *address, long size/* length */, int fd);
