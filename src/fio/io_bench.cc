@@ -22,7 +22,7 @@ double read_randomly(char *address, long size, int fd)
     gettimeofday(&starttime, 0);
     for (size_t i = 0; i < size; ++i)
     {
-        read(fd, address+1, 1);
+        read(fd, address+i, 1);
         lseek(fd, i, SEEK_SET);
     }
     gettimeofday(&endtime, 0);

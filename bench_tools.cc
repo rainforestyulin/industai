@@ -11,24 +11,28 @@ const char *rm_file_cmd = "del -Force test.bin1";
 const char *rm_file_cmd = "rm -f test.bin1";
 #endif
 
+#define GiB 1024*1024*1024
+#define MiB 1024*1024
+#define KiB 1024
+
 int main(int argc, char **argv)
 {
     /* number of prime, default:20000 */
     long prime_numb = 20000;
 
-    /* size of memory, default:1024*1024*1024 */
-    size_t memory_size = 1024*1024*1024;
+    /* size of memory, default:1024 MiB */
+    size_t memory_size = 1024 * MiB;
+
     /* repeat times, default:10 */
     int repeat = 10;
 
     /* options */
     int options = 0;
 
-    /* size of test file, default: 16*1024*1024bytes */
-    size_t file_size = 4*1024*1024;    // 16MiB
+    /* size of test file, default: 256MiB */
+    size_t file_size = 256 * MiB;
 
     const char *file_path1 = "./test.bin1";
-    const char *file_path2 = "./test.bin2";
 
     int op_code;
     while ((op_code = getopt(argc, argv, "hcn:ms:dp:f:r:")) != EOF )
@@ -37,7 +41,7 @@ int main(int argc, char **argv)
         {
         case 'h':
             printf("Usage: memben [options]\n");
-            printf("Options: \n     -a :number of objects\n     -b :repeat_times\n");
+            printf("Options: \n     -c :cpu bench \n     -m :memory bench\n");
             return 0;
         case 'c':
             options |= 0b100;
@@ -49,7 +53,7 @@ int main(int argc, char **argv)
             options |= 0b001;
             break;
         case 's':
-            memory_size = strtoul(optarg, (char **)NULL, 10);
+            memory_size = strtoul(optarg, (char **)NULL, 10) * MiB; // n MiB
             break;
         case 'n':
             prime_numb = strtoul(optarg, (char **)NULL, 10);
@@ -57,7 +61,7 @@ int main(int argc, char **argv)
         case 'p':
             break;
         case 'f':
-            file_size = strtoul(optarg, (char**)NULL, 10);
+            file_size = strtoul(optarg, (char**)NULL, 10) * MiB;
             break;
         case 'r':
             repeat = strtoul(optarg,(char **)NULL, 10);
@@ -77,9 +81,15 @@ int main(int argc, char **argv)
     if (options & 0b010)
     {
         printf("MEM------------------------->\n");
+        printf("  randomly access------------------>\n");
         for (size_t i = 0; i < repeat; ++i)
         {
-            memory_bench::print_result(memory_bench::run_time(memory_size), memory_size);
+            memory_bench::print_result(memory_bench::run_time_rand<char>(memory_size), memory_size*sizeof(char));
+        }
+        printf("  sequentially access-------------->\n");
+        for (size_t i = 0; i < repeat; ++i)
+        {
+            memory_bench::print_result2(memory_bench::run_time_seq<char>(memory_size), memory_size*sizeof(char));
         }
     }
     if (options & 0b001)
