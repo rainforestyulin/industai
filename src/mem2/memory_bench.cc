@@ -1,5 +1,5 @@
 #include "simple_vector.cc"
-#include "../platform.h"
+// #include "../platform.h"
 
 #include <memory>
 #include <string>

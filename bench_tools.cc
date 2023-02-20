@@ -7,8 +7,10 @@
 
 #ifdef WIN32
 const char *rm_file_cmd = "del -Force test.bin1";
+const char *rm_file_cmd2 = "del -Force test.bin2";
 #else
 const char *rm_file_cmd = "rm -f test.bin1";
+const char *rm_file_cmd2 = "rm -f test.bin2";
 #endif
 
 #define GiB 1024*1024*1024
@@ -33,7 +35,8 @@ int main(int argc, char **argv)
     size_t file_size = 256 * MiB;
 
     const char *file_path1 = "./test.bin1";
-
+    const char *file_path2 = "./test.bin2";
+    
     int op_code;
     while ((op_code = getopt(argc, argv, "hcn:ms:dp:f:r:")) != EOF )
     {
@@ -99,20 +102,23 @@ int main(int argc, char **argv)
     if (options & 0b001)
     {
         int fd = open(file_path1, O_RDWR|O_CREAT);
-        printf("IO------------------------->\n");
-        printf("  randomly read------------------>\n");
+        int fd2 = open(file_path2, O_RDWR|O_CREAT);
         char *data = io_bench::prepare_data(file_size);
-        io_bench::print_result(io_bench::read_randomly(data, file_size, fd), file_size);
-        printf("  sequentially read-------------->\n");
-        io_bench::print_result(io_bench::read_sequnetially(data, file_size, fd), file_size);
+        printf("IO------------------------->\n");
         printf("  randomly write----------------->\n");
         io_bench::print_result(io_bench::write_randomly(data, file_size, fd), file_size);
+        printf("  randomly read------------------>\n");
+        io_bench::print_result(io_bench::read_randomly(data, file_size, fd), file_size);
+        close(fd);
         printf("  sequentially write------------->\n");
-        io_bench::print_result(io_bench::write_sequentially(data, file_size, fd), file_size);
+        io_bench::print_result(io_bench::write_sequentially(data, file_size, fd2), file_size);
+        printf("  sequentially read-------------->\n");
+        io_bench::print_result(io_bench::read_sequnetially(data, file_size, fd2), file_size);
 
         free(data);
-        close(fd);
+        close(fd2);
         system(rm_file_cmd);
+        system(rm_file_cmd2);
     }
 
     return 0;

@@ -62,7 +62,8 @@ double  write_randomly(char *data, long size, int fd)
     gettimeofday(&starttime, 0);
     for (size_t i = 0; i < size; ++i)
     {
-       lseek(fd, randm(size), SEEK_SET);
+        lseek(fd, i, SEEK_SET);
+       // lseek(fd, randm(size), SEEK_SET);
        write(fd, data + i, 1);
     }
     gettimeofday(&endtime, 0);

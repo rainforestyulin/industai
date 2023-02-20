@@ -9,3 +9,5 @@ OBJ:$(SRC)
 	$(CC) $(CFLAGS)  $(SRC) -o $(OBJ) 
 clean:
 	rm $(OBJ)
+	rm ./test.bin1
+	rm ./test.bin2
