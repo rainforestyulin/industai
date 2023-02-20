@@ -16,14 +16,19 @@ inline double time_deal(struct timeval &s, struct timeval &e)
                           s.tv_sec*1000000 + e.tv_usec - s.tv_usec))/1000000;
 }
 
+long randm(long size)
+{
+    return rand()%size;
+}
+
 double read_randomly(char *address, long size, int fd)
 {
     struct timeval starttime, endtime;
     gettimeofday(&starttime, 0);
     for (size_t i = 0; i < size; ++i)
     {
+        lseek(fd, randm(size), SEEK_SET);
         read(fd, address+i, 1);
-        lseek(fd, i, SEEK_SET);
     }
     gettimeofday(&endtime, 0);
     return time_deal(starttime, endtime);
@@ -36,6 +41,7 @@ double read_sequnetially(char *address,long size, int fd)
     gettimeofday(&starttime, 0);
     for (size_t i = 0; i < size; ++i)
     {
+        randm(size);
         continue;
     }
     gettimeofday(&endtime, 0);
@@ -56,8 +62,8 @@ double  write_randomly(char *data, long size, int fd)
     gettimeofday(&starttime, 0);
     for (size_t i = 0; i < size; ++i)
     {
+       lseek(fd, randm(size), SEEK_SET);
        write(fd, data + i, 1);
-       lseek(fd, i, SEEK_SET);
     }
     gettimeofday(&endtime, 0);
     return time_deal(starttime, endtime);
@@ -70,7 +76,8 @@ double write_sequentially(char *data, long size, int fd)
     gettimeofday(&starttime, 0);
     for (size_t i = 0; i < size; ++i)
     {
-       continue;
+        randm(size);
+        continue;
     }
     write(fd, data, size);
     gettimeofday(&endtime, 0);

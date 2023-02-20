@@ -28,7 +28,7 @@ double run_time_rand(size_t mem_size)
     SimpleVector<T> mvector;
     struct timeval starttime, endtime;
     gettimeofday(&starttime, 0);
-    for (size_t i = 0; i < mem_size; ++i)
+    for (size_t i = 0; i < mem_size/sizeof(T); ++i)
     {
         mvector.push_back(0);
     }

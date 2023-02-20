@@ -84,12 +84,12 @@ int main(int argc, char **argv)
         printf("  randomly access------------------>\n");
         for (size_t i = 0; i < repeat; ++i)
         {
-            memory_bench::print_result(memory_bench::run_time_rand<char>(memory_size), memory_size*sizeof(char));
+            memory_bench::print_result(memory_bench::run_time_rand<int>(memory_size), memory_size);
         }
         printf("  sequentially access-------------->\n");
         for (size_t i = 0; i < repeat; ++i)
         {
-            memory_bench::print_result2(memory_bench::run_time_seq<char>(memory_size), memory_size*sizeof(char));
+            memory_bench::print_result2(memory_bench::run_time_seq<char>(memory_size), memory_size);
         }
     }
     if (options & 0b001)
