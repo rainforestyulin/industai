@@ -40,8 +40,12 @@ int main(int argc, char **argv)
         switch (op_code)
         {
         case 'h':
-            printf("Usage: memben [options]\n");
-            printf("Options: \n     -c :cpu bench \n     -m :memory bench\n");
+            printf("Usage: bench_tools [options]\n");
+            printf("Options: \n");
+            printf("    -r[] :repeat times\n");
+            printf("    -c :cpu bench  -n[] :prime number\n");
+            printf("    -m :memory bench  -s[]:memory size(MiB)\n");
+            printf("    -d :io bench -f[]:file size(MiB)\n");
             return 0;
         case 'c':
             options |= 0b100;
@@ -89,7 +93,7 @@ int main(int argc, char **argv)
         printf("  sequentially access-------------->\n");
         for (size_t i = 0; i < repeat; ++i)
         {
-            memory_bench::print_result2(memory_bench::run_time_seq<char>(memory_size), memory_size);
+            memory_bench::print_result2(memory_bench::run_time_seq<int>(memory_size), memory_size);
         }
     }
     if (options & 0b001)
